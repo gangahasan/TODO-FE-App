@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleStatus } from "../redux/actions/actions";
+import { deleteTodo, toggleStatus } from "../redux/actions/actions";
 // import { toggleStatus } from "../redux/actions/actions";
 
 const TodosList = () => {
+
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  console.log(todos, "todos");
+  // console.log(todos, "todos");
+
   const handleChange = (todo) => {
     dispatch(toggleStatus(todo));
   };
+  const handleDelete=(todo)=>{
+    dispatch(deleteTodo(todo))
 
+  }
   return (
     <div>
       {/* if todos are empty */}
-      {todos.length === 0 && <b>No Todo's available Yet!</b>}
+      {todos?.length === 0 && <b>No Todo's available Yet!</b>}
       {/* todos exist case */}
-      {todos.length > 0 && (
+      {todos?.length > 0 && (
         <div className="flex flex-col gap-2 place-items-center p-2">
           {todos.map((todo) => {
             return (
@@ -39,12 +44,13 @@ const TodosList = () => {
                     {todo?.isCompleted ? (
                       <p>Completed:{todo?.completedDate}</p>
                     ) : (
-                      <p>Created: {todo?.createdDate}</p>
+                      <p>Created: {todo?.createDate}</p>
                     )}
                   </div>
                 </div>
                 <div>
                   <p>{todo?.isCompleted ? "completed" : "pending"}</p>
+                  <button className="my-4 text-red-500" onClick={()=>handleDelete(todo)}>Delete</button>
                 </div>
               </div>
             );

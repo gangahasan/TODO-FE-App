@@ -16,7 +16,7 @@ const AddTodo = () => {
       title: title,
       description: description,
       iscompleted: false,
-      createdDate: new Date().toISOString(),
+      createDate: new Date().toISOString(),
       completedDate: new Date().toISOString(),
     };
     dispatch(addTodo(todoObj));
@@ -30,7 +30,7 @@ const AddTodo = () => {
         <div className="flex flex-col place-items-center gap-2 m-4">
           <div className=" border-1 border-gray-400 rounded-md w-100">
             <input
-              className="w-80 p-2 outline-0"
+              className="w-100 p-2 outline-0"
               type="text"
               value={title}
               placeholder="Title"
@@ -40,7 +40,7 @@ const AddTodo = () => {
           </div>
           <div className="border-1 border-gray-400 rounded-md w-100">
             <input
-              className="w-80 p-2 outline-0"
+              className="w-100 p-2 outline-0"
               type="text"
               value={description}
               placeholder="Description"
