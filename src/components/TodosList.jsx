@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleStatus } from "../redux/actions/actions";
+// import { toggleStatus } from "../redux/actions/actions";
 
 const TodosList = () => {
   const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
   console.log(todos, "todos");
-  console.log("hello");
-  console.log({ todos });
+  const handleChange = (todo) => {
+    dispatch(toggleStatus(todo));
+  };
 
   return (
     <div>
@@ -17,22 +21,30 @@ const TodosList = () => {
           {todos.map((todo) => {
             return (
               <div
+                className="flex justify-between gap-4 p-2 m-2 border-1 border-gray-400 rounded-md w-100"
                 key={todo?.id}
-                className="flex justify-between gap-4 p-2 m-2 
-            border-1 border-gray-400 rounded-md w-100"
               >
-                <div className="flex gap-4">
+                <div>
+                  <button
+                    onClick={() => handleChange(todo)}
+                    className="border-2 border-gray-400 p-2 rounded-sm text-green-500"
+                  >
+                    {todo.isCompleted ? "✔" : " "}
+                  </button>
+                </div>
+                <div className="flex flex-col place-items-start">
+                  <h2 className="font-bold">{todo?.title}</h2>
+                  <p>{todo?.description}</p>
                   <div>
-                    <input type="checkbox" />
-                  </div>
-                  <div className="flex flex-col place-items-start">
-                    <h2 className="font-bold">{todo?.title}</h2>
-                    <p>{todo?.description}</p>
-                    <p>Created: {todo?.createdDate}</p>
+                    {todo?.isCompleted ? (
+                      <p>Completed:{todo?.completedDate}</p>
+                    ) : (
+                      <p>Created: {todo?.createdDate}</p>
+                    )}
                   </div>
                 </div>
                 <div>
-                  <p>completed</p>
+                  <p>{todo?.isCompleted ? "completed" : "pending"}</p>
                 </div>
               </div>
             );
