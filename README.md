@@ -9,7 +9,9 @@ Check out the live version of the project here: [TODO APPLICATION](https://todo-
 ## 🚀 Intuitive & User-Friendly Interface:
 
     **ADD TODO**
+
     User can the new todo to the list with title and description,it is automatically added to the list, And I maintain a localStorage sync so todos persist after refresh.
+
   ![TODO Page](assets/TodoPage.png)
 
 ## TODO-LIST
@@ -24,7 +26,22 @@ Check out the live version of the project here: [TODO APPLICATION](https://todo-
 
   The user can Toggle the todo through the button provided in the todo itself. Delete feature will delete the todo from the list.
 
-  
+ ## Time logs for each feature
+
+ ADD-TODO ---> 02:55 mins.
+
+ LIST_TODO ---> 00:30 mins.
+
+ Manage LocalStorage ---> 02:30 mins.
+
+ ToggleTodo ---> 05:00 mins.
+
+ Search and Sort ---> 07:00 mins.
+
+ Delete  ---> 00:20 mins.
+
+ documentation ---> 45 mins
+
 ## ✨ Why Choose TODO APPLICATION?
 
 ✅ Fast & Efficient – Optimized for performance and quick load times.
