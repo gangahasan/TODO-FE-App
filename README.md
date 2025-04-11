@@ -9,7 +9,6 @@ Check out the live version of the project here: [TODO APPLICATION](https://todo-
 ## 🚀 Intuitive & User-Friendly Interface:
 
 ## ADD TODO
-
     User can the new todo to the list with title and description,it is automatically added to the list, And I maintain a localStorage sync so todos persist after refresh.
 
   ![TODO Page](/src/assets/TodoPage.png)
@@ -54,7 +53,7 @@ Check out the live version of the project here: [TODO APPLICATION](https://todo-
 
 * TailWindCSS
 
-* React, react-redux
+* ReactJs, react-redux
 
 **Hosting:** Vercel
 
