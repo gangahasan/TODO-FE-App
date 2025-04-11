@@ -28,8 +28,8 @@ const SortTheList = () => {
        }
     }
   return (
-    <div className="w-50">
-      <select className="border-1 border-gray-400 rounded-sm px-2 w-48 flex justify-items-start gap-2 place-items-center outline-0" 
+    <div className="w-60">
+      <select className="border-1 border-gray-400 rounded-sm px-2 w-58 flex justify-items-start gap-2 place-items-center outline-0" 
            value={sortValue} onChange={handleSort}>
         <option value="">SortBy CreateDate</option>
         <option value="O-N">Oldest First</option>

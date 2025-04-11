@@ -19,8 +19,8 @@ const SearchTodo = () => {
     }
     
   return (
-    <div className="w-50">
-      <div className="border-1 border-gray-400 rounded-sm  px-2 w-48 flex justify-items-start gap-2 place-items-center">
+    <div className="w-60">
+      <div className="border-1 border-gray-400 rounded-sm  px-2 w-58 flex justify-items-start gap-2 place-items-center">
         <CiSearch />
         <input className='outline-0' type="text" placeholder="Search" onChange={handleSearch}/>
      

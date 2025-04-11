@@ -26,10 +26,10 @@ const TodosList = () => {
           {todos.map((todo) => {
             return (
               <div
-                className="flex justify-between gap-4 p-2 m-2 border-1 border-gray-400 rounded-md w-100"
+                className="flex justify-between gap-4 p-2 m-2 border-1 border-gray-400 rounded-md w-120"
                 key={todo?.id}
               >
-                <div>
+                <div className="self-start">
                   <button
                     onClick={() => handleChange(todo)}
                     className="border-2 border-gray-400 p-2 rounded-sm text-green-500"
