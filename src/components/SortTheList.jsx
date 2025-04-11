@@ -1,22 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { sortOldToNew } from '../redux/actions/actions';
+import { sortTheList } from '../redux/actions/actions';
+
 
 const SortTheList = () => {
-    const todos = useSelector((state)=>state.todos)
+    const todos = useSelector((state)=>state.todos);
+    const [sortValue, setSortValue]=useState("");
+    // console.log({sortValue})
+
     const dispatch = useDispatch();
 
-    const handleChange=(todos)=>{
-        console.log({todos})
-        const sortedOToN = todos.sort((a,b)=> {return a.createDate - b.createDate});
-        console.log({sortedOToN});
-        
-        dispatch(sortOldToNew(sortedOToN))
+    const handleSort=(e)=>{
+        let sortValue= e.target.value;
+       if(sortValue === "O-N"){
+        setSortValue(sortValue)
+        const sortedList = [...todos].sort((a,b)=> new Date(a.createDate)-new Date(b.createDate))
+        console.log({sortedList})
+        dispatch(sortTheList(sortedList));
+       }
+       else{
+        setSortValue(sortValue);
+        const sortedList = [...todos].sort((a, b) => 
+          new Date(b.createDate) - new Date(a.createDate)
+        );
+        console.log({ sortedList });
+        dispatch(sortTheList(sortedList));
+       }
     }
   return (
     <div className="w-50">
       <select className="border-1 border-gray-400 rounded-sm px-2 w-48 flex justify-items-start gap-2 place-items-center outline-0" 
-            onChange={()=>handleChange(todos)}>
+           value={sortValue} onChange={handleSort}>
         <option value="">SortBy CreateDate</option>
         <option value="O-N">Oldest First</option>
         <option value="N-O">Newest First</option>

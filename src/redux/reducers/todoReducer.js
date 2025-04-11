@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, SEARCH_TASK, SORT_OLDEST_FIRST, TOGGLE_STATUS } from "../actions/actions";
+import { ADD_TODO, DELETE_TODO, SEARCH_TASK, SORT_THE_LIST, TOGGLE_STATUS } from "../actions/actions";
 
 const todoList = JSON.parse(localStorage.getItem("todos")) || [];
 // console.log({ todoList });
@@ -28,17 +28,17 @@ export const todoReducer = (state = initState, action) => {
         ...state,
         todos: updatedTodos,
       };
-        case SEARCH_TASK:
+    case SEARCH_TASK:
             return{
                 ...state,
                 todos:action.payload,
             }
-        case SORT_OLDEST_FIRST:
-            return{
-                ...state,
-                todos:action.payload,
-            }
-        case DELETE_TODO:
+    case SORT_THE_LIST:
+        return{
+            ...state,
+            todos:action.payload,
+        }
+    case DELETE_TODO:
             const updatedList = state.todos.filter((todo)=>
                 todo.id !== action.payload.id
             )

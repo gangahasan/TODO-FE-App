@@ -2,8 +2,7 @@ export const ADD_TODO = "ADD_TODO";
 export const TOGGLE_STATUS = "TOGGLE_STATUS"
 export const DELETE_TODO = "DELETE_TODO"
 export const SEARCH_TASK = "SEARCH_TASK"
-export const SORT_OLDEST_FIRST = "SORT_OLDEST_FIRST"
-// export const SORT_NEWEST_FIRST = "SORT_NEWEST_FIRST"
+export const SORT_THE_LIST = "SORT_THE_LIST"
 export const addTodo=(todoObj)=>{
      localStorage.setItem("todos", JSON.stringify(todoObj));
 
@@ -34,13 +33,10 @@ export const searchTodo=(matchedTodo)=>{
     }
 
 }
-export const sortOldToNew =(sortedOToN)=>{
+export const sortTheList=(sortedList)=>{
     return{
-        type:SORT_OLDEST_FIRST,
-        payload:sortedOToN,
+        type:SORT_THE_LIST,
+        payload:sortedList,
     }
 
 }
-// export const sortNewToOld=()=>{
-
-// }
