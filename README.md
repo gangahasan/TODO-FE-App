@@ -8,8 +8,11 @@ Check out the live version of the project here: [TODO APPLICATION](https://todo-
 # 🛠️Features
 ## 🚀 Intuitive & User-Friendly Interface:
 
-## ADD TODO
-    User can the new todo to the list with title and description,it is automatically added to the list, And I maintain a localStorage sync so todos persist after refresh.
+
+## Add Todo
+
+  User can the new todo to the list with title and description,it is automatically added to the list, And I maintain a localStorage sync so todos persist after refresh.  
+    
 
   ![TODO Page](/src/assets/TodoPage.png)
 
