@@ -42,9 +42,9 @@ const TodosList = () => {
                   <p>{todo?.description}</p>
                   <div>
                     {todo?.isCompleted ? (
-                      <p>Completed:{todo?.completedDate}</p>
+                      <p className="self-start">Completed:{todo?.completedDate}</p>
                     ) : (
-                      <p>Created: {todo?.createDate}</p>
+                      <p>Created at: {todo?.createDate}</p>
                     )}
                   </div>
                 </div>

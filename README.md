@@ -1,6 +1,6 @@
 # TODO APPLICATION
 
-**TODO APPLICATION** is an interactive and visually appealing web application designed to maintain your TODO list. It provides users to add the todos to the list. The user can sort the  list based on createDate and search a particular todo with query. The application is built using ReactJs and maintain state with redux-toolkit designed with TailWindCSS.
+**TODO APPLICATION** is an interactive and visually appealing web application designed to maintain a TODO list. It provides users to add the todos to the list. The user can sort the  list based on createDate and search a particular todo with query. It offered Toggle and delete the todos with single click. The application is built using ReactJs and maintain state with redux-toolkit designed with TailWindCSS.
 
 # 🌐 Live Demo
 Check out the live version of the project here: [TODO APPLICATION](https://todo-fe-app.vercel.app/)
