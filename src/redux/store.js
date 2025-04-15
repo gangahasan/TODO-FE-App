@@ -1,4 +1,10 @@
-import {legacy_createStore as createStore} from "redux"
-import { todoReducer } from "./reducers/todoReducer"
+import { configureStore } from "@reduxjs/toolkit";
+import  todoReducer  from "../features/todo/todoSlice";
+import authReducer from "../features/auth/authSlice"
 
-export const store = createStore(todoReducer)
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    todo: todoReducer,
+  },
+});

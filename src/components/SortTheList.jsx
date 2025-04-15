@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { sortTheList } from '../redux/actions/actions';
+// import { sortTheList } from '../redux/actions/actions';
 
 
 const SortTheList = () => {
@@ -16,7 +16,7 @@ const SortTheList = () => {
         setSortValue(sortValue)
         const sortedList = [...todos].sort((a,b)=> new Date(a.createDate)-new Date(b.createDate))
         console.log({sortedList})
-        dispatch(sortTheList(sortedList));
+        // dispatch(sortTheList(sortedList));
        }
        else{
         setSortValue(sortValue);
@@ -28,10 +28,10 @@ const SortTheList = () => {
        }
     }
   return (
-    <div className="w-60">
-      <select className="border-1 border-gray-400 rounded-sm px-2 w-58 flex justify-items-start gap-2 place-items-center outline-0" 
+    <div className="w-30">
+      <select className="border-1 border-gray-400 bg-blue-600 text-white rounded-sm p-2 w-38 flex justify-items-start gap-2 place-items-center outline-0" 
            value={sortValue} onChange={handleSort}>
-        <option value="">SortBy CreateDate</option>
+        <option value="">ALL</option>
         <option value="O-N">Oldest First</option>
         <option value="N-O">Newest First</option>
       </select>

@@ -1,60 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, toggleStatus } from "../redux/actions/actions";
-// import { toggleStatus } from "../redux/actions/actions";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { deleteTodo, fetchTodos, toggleTodoStatus } from "../features/todo/todoActions";
+
 
 const TodosList = () => {
-
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state) => state.todo.todos);
+  console.log(todos,"todos")
   const dispatch = useDispatch();
-  // console.log(todos, "todos");
 
-  const handleChange = (todo) => {
-    dispatch(toggleStatus(todo));
+  useEffect(()=>{
+    dispatch(fetchTodos());
+
+  },[dispatch])
+
+  const handleToggle = (todo) => {
+    dispatch(toggleTodoStatus(todo));
   };
-  const handleDelete=(todo)=>{
-    dispatch(deleteTodo(todo))
 
+  const handleDelete = (id) => {
+    dispatch(deleteTodo(id))
   }
   return (
-    <div>
-      {/* if todos are empty */}
-      {todos?.length === 0 && <b>No Todo's available Yet!</b>}
-      {/* todos exist case */}
-      {todos?.length > 0 && (
-        <div className="flex flex-col gap-2 place-items-center p-2">
-          {todos.map((todo) => {
-            return (
-              <div
-                className="flex justify-between gap-4 p-2 m-2 border-1 border-gray-400 rounded-md w-120"
-                key={todo?.id}
-              >
-                <div className="self-start">
-                  <button
-                    onClick={() => handleChange(todo)}
-                    className="border-2 border-gray-400 p-2 rounded-sm text-green-500"
-                  >
-                    {todo.isCompleted ? "✔" : " "}
-                  </button>
-                </div>
-                <div className="flex flex-col place-items-start">
-                  <h2 className="font-bold">{todo?.title}</h2>
-                  <p>{todo?.description}</p>
-                  <div>
-                    {todo?.isCompleted ? (
-                      <p className="self-start">Completed:{todo?.completedDate}</p>
-                    ) : (
-                      <p>Created at: {todo?.createDate}</p>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <p>{todo?.isCompleted ? "completed" : "pending"}</p>
-                  <button className="my-4 text-red-500" onClick={()=>handleDelete(todo)}>Delete</button>
-                </div>
-              </div>
-            );
-          })}
+    <div className="p-4">
+      {todos.length === 0 ? (
+        <p className="text-center font-semibold">No Todo's available Yet!</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-300 shadow-md rounded-md">
+            <thead className="bg-gray-200 text-gray-700">
+              <tr>
+                <th className="py-2 px-6 text-left">Done</th>
+                <th className="py-2 px-4 text-left">Title & Description</th>
+                <th className="py-2 px-4 text-left">Created Date</th>
+                <th className="py-2 px-4 text-left">Completed Date</th>
+                <th className="py-2 px-4 text-left">Status</th>
+                <th className="py-2 px-4 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {todos.map((todo) => (
+                <tr
+                  key={todo.id}
+                  className="border-t border-gray-300 hover:bg-gray-50"
+                >
+                  <td className="py-2 px-4">
+                    <input
+                      type="checkbox"
+                      checked={todo.isCompleted}
+                      onChange={() => handleToggle(todo)}
+                      className="w-5 h-5"
+                    />
+                  </td>
+                  <td className="py-2 px-4">
+                    <div>
+                      <p className="font-semibold">{todo.title}</p>
+                      <p className="text-sm text-gray-600">
+                        {todo.description}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-2 px-4 text-sm text-gray-700">
+                    {new Date(todo.createDate).toLocaleString()}
+                  </td>
+                  <td className="py-2 px-4 text-sm text-gray-700">
+                    {todo.isCompleted
+                      ? new Date(todo.completedDate).toLocaleString()
+                      : "-"}
+                  </td>
+                  <td className="py-2 px-4">
+                    <span
+                      className={`px-2 py-1 text-xs rounded-full ${
+                        todo.isCompleted
+                          ? "bg-green-200 text-green-700"
+                          : "bg-yellow-200 text-yellow-700"
+                      }`}
+                    >
+                      {todo.isCompleted ? "Completed" : "Pending"}
+                    </span>
+                  </td>
+                  <td className="py-2 px-4 mt-3 flex items-center justify-start gap-4">
+                    <button className="text-blue-600 font-medium hover:underline">
+                      <MdOutlineModeEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(todo.id)}
+                      className="text-red-600 font-medium hover:underline"
+                    >
+                      <RiDeleteBin6Line />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

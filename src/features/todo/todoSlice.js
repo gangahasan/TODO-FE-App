@@ -1,0 +1,47 @@
+import { createSlice } from "@reduxjs/toolkit";
+import {addTodo,fetchTodos,toggleTodoStatus,deleteTodo } from "./todoActions";
+
+const initialState = {
+  todos: [],
+  loading: false,
+  error: null,
+};
+
+const todoSlice = createSlice({
+  name: "todo",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.todos = action.payload;
+      })
+      .addCase(fetchTodos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        console.error("Fetch Todos failed:", action.error.message);
+      })
+      .addCase(addTodo.fulfilled, (state, action) => {
+        state.todos.push(action.payload);
+      })
+      .addCase(toggleTodoStatus.fulfilled, (state, action) => {
+        const index = state.todos.findIndex(
+          (todo) => todo.id === action.payload.id
+        );
+        state.todos[index] = action.payload;
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      })
+      .addCase(deleteTodo.rejected, (state, action) => {
+        state.error = action.error.message;
+        console.error("Delete todo failed:", action.error.message);
+      });
+  },
+});
+
+export default todoSlice.reducer;
