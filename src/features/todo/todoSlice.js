@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {addTodo,fetchTodos,toggleTodoStatus,deleteTodo, searchTodo } from "./todoActions";
+import {addTodo,fetchTodos,toggleTodoStatus,deleteTodo, searchTodo, sortTodos } from "./todoActions";
 
 const initialState = {
   todos: [],
@@ -26,13 +26,17 @@ const todoSlice = createSlice({
         console.error("Fetch Todos failed:", action.error.message);
       })
       .addCase(addTodo.fulfilled, (state, action) => {
-        state.todos.push(action.payload);
+        state.todos.unshift(action.payload);
       })
       .addCase(toggleTodoStatus.fulfilled, (state, action) => {
         const index = state.todos.findIndex(
           (todo) => todo.id === action.payload.id
         );
         state.todos[index] = action.payload;
+      })
+      .addCase(toggleTodoStatus.rejected, (state, action) => {
+        state.error = action.error.message;
+        console.error("Toggle todo failed:", action.error.message);
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.todos = state.todos.filter((todo) => todo.id !== action.payload);
@@ -52,7 +56,10 @@ const todoSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
         console.error("Search todo failed:", action.error.message);
-      });
+      })
+      .addCase(sortTodos.fulfilled,(state,action)=>{
+        state.todos = action.payload;
+      })
 
   },
 });

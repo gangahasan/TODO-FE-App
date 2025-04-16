@@ -70,7 +70,7 @@ export const deleteTodo = createAsyncThunk(
 export const searchTodo = createAsyncThunk(
   "todo/searchTodo",
   async (searchText) => {
-    const querySnapshot = await getDocs(todosCollection); // 👈 fetch all todos
+    const querySnapshot = await getDocs(todosCollection); 
 
     const todos = querySnapshot.docs
       .map((doc) => {
@@ -87,6 +87,32 @@ export const searchTodo = createAsyncThunk(
       .filter(
         (todo) => todo.title.toLowerCase().includes(searchText.toLowerCase()) // 👈 case-insensitive filter
       );
+
+    return todos;
+  }
+);
+export const sortTodos = createAsyncThunk(
+  "todo/sortTodos",
+  async (sortValue) => {
+    const querySnapshot = await getDocs(todosCollection);
+
+    let todos = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          title: data.title,
+          description: data.description,
+          isCompleted: data.isCompleted,
+          createDate: data.createDate || null,
+          completedDate: data.completedDate || null,
+        };
+      })
+      if (sortValue === "completed") {
+        todos = todos.filter((todo) => todo.isCompleted);
+      } else if (sortValue === "pending") {
+        todos = todos.filter((todo) => !todo.isCompleted);
+      } 
 
     return todos;
   }
