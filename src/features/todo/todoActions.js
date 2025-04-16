@@ -67,3 +67,27 @@ export const deleteTodo = createAsyncThunk(
     return id;
   }
 );
+export const searchTodo = createAsyncThunk(
+  "todo/searchTodo",
+  async (searchText) => {
+    const querySnapshot = await getDocs(todosCollection); // 👈 fetch all todos
+
+    const todos = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          title: data.title,
+          description: data.description,
+          isCompleted: data.isCompleted,
+          createDate: data.createDate || null,
+          completedDate: data.completedDate || null,
+        };
+      })
+      .filter(
+        (todo) => todo.title.toLowerCase().includes(searchText.toLowerCase()) // 👈 case-insensitive filter
+      );
+
+    return todos;
+  }
+);

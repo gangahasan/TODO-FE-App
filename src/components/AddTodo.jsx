@@ -38,10 +38,10 @@ const AddTodo = () => {
   return (
     <div className="my-4 w-full flex flex-col items-center">
       {!showForm && (
-        <div className="w-full">
+        <div className="w-200">
          <button
           onClick={() => setShowForm(true)}
-          className="text-3xl font-bold float-middle bg-blue-500 text-white rounded-full p-2 shadow-md hover:bg-blue-600"
+          className="text-3xl font-bold float-right bg-blue-500 text-white rounded-full p-2 shadow-lg hover:bg-blue-600"
         >
            <FaPlus />
         </button>
