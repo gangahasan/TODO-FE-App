@@ -117,3 +117,23 @@ export const sortTodos = createAsyncThunk(
     return todos;
   }
 );
+export const editTodos = createAsyncThunk("todo/editTodos", async (todo) => {
+  try {
+    const todoRef = doc(db, "todos", todo.id);
+
+    const updatedTodo = {
+      title: todo.title,
+      description: todo.description,
+      isCompleted: todo.isCompleted,
+      createDate: todo.createDate,
+      completedDate: todo.completedDate || null,
+    };
+
+    await updateDoc(todoRef, updatedTodo);
+
+    return { id: todo.id, ...updatedTodo };
+  } catch (error) {
+    console.error("Error updating todo:", error);
+    throw error;
+  }
+});

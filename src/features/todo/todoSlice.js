@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {addTodo,fetchTodos,toggleTodoStatus,deleteTodo, searchTodo, sortTodos } from "./todoActions";
+import {addTodo,fetchTodos,toggleTodoStatus,deleteTodo, searchTodo, sortTodos, editTodos } from "./todoActions";
 
 const initialState = {
   todos: [],
@@ -60,6 +60,15 @@ const todoSlice = createSlice({
       .addCase(sortTodos.fulfilled,(state,action)=>{
         state.todos = action.payload;
       })
+      .addCase(editTodos.fulfilled, (state, action) => {
+        const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+        if (index !== -1) {
+          state.todos[index] = {
+            ...state.todos[index],
+            ...action.payload,
+          };
+        }
+      });
 
   },
 });

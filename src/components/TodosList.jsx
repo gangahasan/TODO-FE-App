@@ -1,27 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { deleteTodo, fetchTodos, toggleTodoStatus } from "../features/todo/todoActions";
-
+import {
+  deleteTodo,
+  fetchTodos,
+  toggleTodoStatus,
+  editTodos,
+} from "../features/todo/todoActions";
 
 const TodosList = () => {
   const todos = useSelector((state) => state.todo.todos);
-  console.log(todos,"todos")
+  const [editTodo, setEditTodo] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchTodos());
-
-  },[dispatch])
+  }, [dispatch]);
 
   const handleToggle = (todo) => {
     dispatch(toggleTodoStatus(todo));
   };
 
+  const handleEdit = (todo) => {
+    setEditTodo({ ...todo }); // Create a copy to edit
+    setShowModal(true);
+  };
+
+  const handleSave = () => {
+    if (editTodo && editTodo.id) {
+      dispatch(editTodos(editTodo));
+      setEditTodo(null);
+      setShowModal(false);
+    }
+  };
+
   const handleDelete = (id) => {
-    dispatch(deleteTodo(id))
-  }
+    dispatch(deleteTodo(id));
+  };
+
   return (
     <div className="p-4">
       {todos.length === 0 ? (
@@ -81,7 +100,10 @@ const TodosList = () => {
                     </span>
                   </td>
                   <td className="py-2 px-4 mt-3 flex items-center justify-start gap-4">
-                    <button className="text-blue-600 font-medium hover:underline">
+                    <button
+                      className="text-blue-600 font-medium hover:underline"
+                      onClick={() => handleEdit(todo)}
+                    >
                       <MdOutlineModeEdit />
                     </button>
                     <button
@@ -95,6 +117,45 @@ const TodosList = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* ✨ Modal for editing */}
+      {showModal && editTodo && (
+        <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-md w-96">
+            <h2 className="text-lg font-bold mb-4">Edit Todo</h2>
+            <input
+              type="text"
+              value={editTodo.title}
+              onChange={(e) =>
+                setEditTodo({ ...editTodo, title: e.target.value })
+              }
+              className="w-full mb-3 p-2 border rounded"
+              autoFocus
+            />
+            <textarea
+              value={editTodo.description}
+              onChange={(e) =>
+                setEditTodo({ ...editTodo, description: e.target.value })
+              }
+              className="w-full mb-4 p-2 border rounded"
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 bg-gray-300 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+              >
+                Save
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
